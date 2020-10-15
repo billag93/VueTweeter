@@ -1,10 +1,8 @@
 <template>
   <div>
-    <div id="createTweet">
-      <h5>{{tweetStatus}}</h5>
-      <input class="text_area" type="textarea" maxlength="200" v-model="tweet" />
-      <br />
-      <button id="tweetbutton" @click="createTweet">Post Tweet</button>
+    <div id="edit_comment">
+      <input class="text_area" type="textarea" maxlength="150" v-model="content" />
+      <button id="commentbutton" @click="editComment">Edit Comment</button>
     </div>
   </div>
 </template>
@@ -13,38 +11,40 @@
 import axios from "axios";
 import cookies from "vue-cookies";
 export default {
-  name: "create-tweet",
+  name: "edit-comment",
 
-  data() {
+  data: function() {
     return {
-      tweet: "",
-      tweetStatus: "Tweet!"
-      
+      content: ""
     };
   },
 
+  props: {
+    commentId: {
+      type: Number
+    }
+  },
+
   methods: {
-    createTweet: function() {
-      this.tweetStatus = "Tweeting!"
+    editComment: function() {
       axios
         .request({
-          url: "https://tweeterest.ml/api/tweets",
-          method: "POST",
+          url: "https://tweeterest.ml/api/comments",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             "X-Api-Key": "iTBBjd87QMFVybPhoCVB3FN6YlhwE6k39MTSSSC9CENwR"
           },
           data: {
-            loginToken: cookies.get("loginToken"),
-            content: this.tweet,
+            commentId: this.commentId,
+            content: this.content,
+            loginToken: cookies.get("loginToken")
           }
         })
         .then(response => {
-          this.tweetStatus ="Tweeted!"
           console.log(response);
         })
         .catch(error => {
-          this.tweetStatus = "Failed to Tweet!"
           console.log(error);
         });
     }
@@ -53,31 +53,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#createTweet {
+#edit_comment {
   display: grid;
   align-items: center;
   justify-items: center;
+  background: deepskyblue;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background: deepskyblue;
-  border: 2px solid cornflowerblue;
+  font-size: 0.8em;
   .text_area {
     border: 5px solid cyan;
-    border-radius: 7%;
+    border-radius: 4%;
     margin: 3% 3%;
     padding: 2% 2%;
-    width: 250px;
-    height: 80px;
-    
   }
-  #tweetbutton {
-    margin: 5% 5%;
+  #commentbutton {
+    margin: 2% 2%;
     padding: 2% 2%;
     background: dodgerblue;
     color: floralwhite;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     border-radius: 7%;
+    border-radius: 10%;
+    box-shadow: 4px 4px 2px darkblue;
   }
 }
 </style>

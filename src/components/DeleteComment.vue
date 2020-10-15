@@ -1,38 +1,36 @@
 <template>
-  <div>
-    <div id="delete_tweet">
-      <button class="delete_button" @click="deleteTweet">Delete Tweet</button>
+    <div>
+      <div id="delete_comment">
+    <button class="delete_button" @click="deleteComment">Delete Comment</button>
+      </div>
     </div>
-  </div>
 </template>
 
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
-export default {
-  name: "delete-tweet",
+    export default {
+        name: "delete-comment",
 
-  props: {
-    tweetId: {
-      type: Number,
-      required: true,
-    }
-  },
+        props: {
+            commentId: {
+                type: Number,
+                
+            },
+        },
 
-  methods: {
-    deleteTweet: function() {
-      (this.content = "Loading"),
-        axios
-          .request({
-            url: "https://tweeterest.ml/api/tweets",
+        methods: {
+            deleteComment: function() {
+        axios.request({
+            url: "https://tweeterest.ml/api/comments",
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
               "X-Api-Key": "iTBBjd87QMFVybPhoCVB3FN6YlhwE6k39MTSSSC9CENwR"
             },
-            data: {
+           data: {
+              commentId: this.commentId,
               loginToken: cookies.get("loginToken"),
-              tweetId: this.tweetId
             }
           })
           .then(response => {
@@ -42,12 +40,12 @@ export default {
             console.log(error);
           });
     }
-  }
-};
+        },
+    }
 </script>
 
 <style lang="scss" scoped>
-#delete_tweet {
+#delete_comment {
   display: grid;
   align-items: center;
   justify-items: center;

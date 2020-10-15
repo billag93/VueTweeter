@@ -1,29 +1,39 @@
 <template>
-    <div>
+  <div>
+    <div id="large_view">
+      <div>
         <user-profile></user-profile>
-        <edit-profile></edit-profile>
-        <delete-profile></delete-profile>
-        <view-other-users></view-other-users>
+        <create-tweet></create-tweet>
+        <view-tweet></view-tweet>
+      </div>
+      <div>
+        <navigation-bar></navigation-bar>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import UserProfile from "../components/UserProfile.vue"
-import EditProfile from "../components/EditProfile.vue"
-import DeleteProfile from "../components/DeleteProfile.vue"
-import ViewOtherUsers from "../components/ViewOtherUsers.vue"
-    export default {
-        name: "users-homepage",
-        components: {
-            UserProfile,
-            EditProfile,
-            DeleteProfile,
-            ViewOtherUsers
-        },
-    }
-
+import UserProfile from "../components/UserProfile.vue";
+import CreateTweet from "../components/CreateTweet.vue";
+import NavigationBar from "../components/NavigationBar.vue";
+import ViewTweet from "../components/ViewTweet.vue";
+export default {
+  name: "users-homepage",
+  components: {
+    UserProfile,
+    NavigationBar,
+    CreateTweet,
+    ViewTweet
+  }
+};
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+@media only screen and (min-width: 768px){
+    #large_view{
+        display: grid;
+        grid-template-columns:3fr 1fr;
+    }
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="unfollowUser">Unfollow</button>
+    <button id="unfollow_user" @click="unfollowUser">Unfollow</button>
   </div>
 </template>
 
@@ -51,4 +51,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#unfollow_user {
+  margin: 1% 1%;
+  padding: 1% 1%;
+  background: dodgerblue;
+  color: floralwhite;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  border-radius: 10%;
+  box-shadow: 4px 4px 2px darkblue;
+}
 </style>

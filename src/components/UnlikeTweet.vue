@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div id="createTweet">
-      <h5>{{tweetStatus}}</h5>
-      <input class="text_area" type="textarea" maxlength="200" v-model="tweet" />
-      <br />
-      <button id="tweetbutton" @click="createTweet">Post Tweet</button>
+    <div id="unlike_button_grid">
+      <button id="unlike_button" @click="unlikeTweet">Unlike</button>
     </div>
   </div>
 </template>
@@ -13,38 +10,33 @@
 import axios from "axios";
 import cookies from "vue-cookies";
 export default {
-  name: "create-tweet",
+  name: "unlike-tweet",
 
-  data() {
-    return {
-      tweet: "",
-      tweetStatus: "Tweet!"
-      
-    };
+  props: {
+    tweetId: {
+      type: Number
+    }
   },
 
   methods: {
-    createTweet: function() {
-      this.tweetStatus = "Tweeting!"
+    unlikeTweet: function() {
       axios
         .request({
-          url: "https://tweeterest.ml/api/tweets",
-          method: "POST",
+          url: "https://tweeterest.ml/api/tweet-likes",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             "X-Api-Key": "iTBBjd87QMFVybPhoCVB3FN6YlhwE6k39MTSSSC9CENwR"
           },
           data: {
-            loginToken: cookies.get("loginToken"),
-            content: this.tweet,
+            tweetId: this.tweetId,
+            loginToken: cookies.get("loginToken")
           }
         })
         .then(response => {
-          this.tweetStatus ="Tweeted!"
           console.log(response);
         })
         .catch(error => {
-          this.tweetStatus = "Failed to Tweet!"
           console.log(error);
         });
     }
@@ -53,31 +45,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#createTweet {
+#unlike_button_grid {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-items: center;
+  background: deepskyblue;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background: deepskyblue;
-  border: 2px solid cornflowerblue;
-  .text_area {
-    border: 5px solid cyan;
-    border-radius: 7%;
-    margin: 3% 3%;
-    padding: 2% 2%;
-    width: 250px;
-    height: 80px;
-    
-  }
-  #tweetbutton {
-    margin: 5% 5%;
-    padding: 2% 2%;
+  font-size: 0.8em;
+  #unlike_button {
+    margin: 1% 1%;
+    padding: 1% 1%;
     background: dodgerblue;
     color: floralwhite;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    border-radius: 7%;
+    border-radius: 10%;
+    box-shadow: 4px 4px 2px darkblue;
+    #unlike_button:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>

@@ -1,17 +1,20 @@
 <template>
   <div>
+    <div id="signup">
     <p>Email</p>
-    <input type="text" id="email-input" v-model="email" />
+    <input type="text" class="textarea" id="email-input" v-model="email" />
     <p>Username</p>
-    <input type="text" id="username-input" v-model="username" />
+    <input type="text" class="textarea" id="username-input" v-model="username" />
     <p>Password</p>
-    <input type="password" id="password-input" v-model="password" />
+    <input type="password" class="textarea" id="password-input" v-model="password" />
     <p>Bio</p>
-    <textarea id="" v-model="bio"></textarea>
+    <textarea id="bio-input" class="textarea" v-model="bio"></textarea>
     <p>Birthday</p>
-    <input type="text" id="birthday-input" v-model="birthdate" />
+    <input type="text" class="textarea" id="birthday-input" v-model="birthdate" />
     <br>
-    <button @click="signupUser">Sign Up</button>
+    <button id="signupbutton" @click="signupUser">Sign Up</button>
+    
+    </div>
   </div>
 </template>
 
@@ -49,6 +52,7 @@ export default {
         //   Write logic to ensure token was sent(if statement)
           console.log(response);
           cookies.set("loginToken",response.data[0].loginToken);
+          cookies.set("userId", response.data[0].userId);
       }).catch((error)=>{
           console.log(error)
       })
@@ -58,4 +62,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  #signup{
+    display: grid;
+    .textarea{
+      border: 5px solid cyan;
+      border-radius: 7%;
+      margin: 3% 3%;
+      padding: 2% 2%;
+    }
+    #signupbutton{
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 1.5em;
+      background: deepskyblue;
+      color: floralwhite;
+      margin: 2% 2%;
+      padding: 3% 3%;
+    }
+  }
+
 </style>
