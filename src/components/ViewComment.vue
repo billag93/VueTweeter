@@ -1,16 +1,25 @@
 <template>
   <div>
-    <div id="comment_grid" v-for="comment in comments" :key="comment.commentId">
-      <div id="comment_box">
-        <h3>{{ comment.content }}</h3>
-        <p>{{ comment.createdAt }}</p>
-      </div>
-      <comment-likes :commentId="comment.commentId"></comment-likes>
-      <like-comment :commentId="comment.commentId"></like-comment>
-      <unlike-comment :commentId="comment.commentId"></unlike-comment>
-      <div v-if="userId == comment.userId">
-        <edit-comment :commentId="comment.commentId"></edit-comment>
-        <delete-comment :commentId="comment.commentId"></delete-comment>
+    <div id="comments">
+      <button @click=" show_comments" id="display_comment">Display comments</button>
+      <div id="show_comment">
+        <div
+          id="comment_grid"
+          v-for="comment in comments"
+          :key="comment.commentId"
+        >
+          <div id="comment_box">
+            <h3>{{ comment.content }}</h3>
+            <p>{{ comment.createdAt }}</p>
+          </div>
+          <comment-likes :commentId="comment.commentId"></comment-likes>
+          <like-comment :commentId="comment.commentId"></like-comment>
+          <unlike-comment :commentId="comment.commentId"></unlike-comment>
+          <div v-if="userId == comment.userId">
+            <edit-comment :commentId="comment.commentId"></edit-comment>
+            <delete-comment :commentId="comment.commentId"></delete-comment>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -49,6 +58,17 @@ export default {
     }
   },
 
+  methods: {
+    show_comments:function() {
+      let x = document.getElementById("show_comment");
+       if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+    }
+  },
+
   mounted: function() {
     axios
       .request({
@@ -69,22 +89,37 @@ export default {
       .catch(error => {
         console.log(error);
       });
-  },
-
- 
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+#comments{
+
+#display_comment{
+     text-decoration: none;
+     margin: 5% 5%;
+    padding: 5% 5%; 
+    background: dodgerblue;
+    color: floralwhite;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-radius: 7%;
+     box-shadow: 4px 4px 2px darkblue;
+}
 #comment_grid {
   display: grid;
   #comment_box {
     display: grid;
-    background: deepskyblue;
-    border: 2px solid cornflowerblue;
+    background: lightblue;
+    border: 3px solid cornflowerblue;
+    border-radius: 5%;
+    margin: 2% 2%;
+    padding: 2% 2%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 1.2em;
+    font-size: 0.8em;
   }
 }
+}
+
 </style>

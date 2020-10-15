@@ -1,8 +1,10 @@
 <template>
   <div>
     <div id="large_view">
-      <div id="explore_grid" v-for="tweet in tweets" :key="tweet.tweetId">
-        <tweet-card :tweetObject="tweet"></tweet-card>
+      <div>
+        <div id="explore_grid" v-for="tweet in tweets" :key="tweet.tweetId">
+          <tweet-card :tweetObject="tweet"></tweet-card>
+        </div>
       </div>
       <div>
         <navigation-bar></navigation-bar>
@@ -41,8 +43,7 @@ html {
   #large_view {
     display: grid;
     grid-template-columns: 3fr 1fr;
-    #explore_grid{
-      
+    #explore_grid {
     }
   }
 }

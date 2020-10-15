@@ -1,6 +1,6 @@
 <template>
     <div>
-
+      <h2>{{totalTweetlikes.length}}</h2>
     </div>
 </template>
 
@@ -8,6 +8,12 @@
 import axios from "axios";
     export default {
         name:"tweet-likes",
+
+        data() {
+          return {
+           totalTweetlikes:[]
+          }
+        },
 
         props: {
             tweetId: {
@@ -25,12 +31,13 @@ import axios from "axios";
               "Content-Type": "application/json",
               "X-Api-Key": "iTBBjd87QMFVybPhoCVB3FN6YlhwE6k39MTSSSC9CENwR"
             },
-           data: {
+           params: {
               tweetId: this.tweetId,
             }
           })
           .then(response => {
             console.log(response);
+            this.totalTweetlikes==response.data;
           })
           .catch(error => {
             console.log(error);
